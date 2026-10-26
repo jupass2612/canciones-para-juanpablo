@@ -35,10 +35,18 @@ jobs:
         with:
           deno-version: v2.x
       - if: steps.check.outputs.si == '1'
-        name: Instalar yt-dlp y ffmpeg
+        name: Instalar ffmpeg
+        timeout-minutes: 5
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-          pip install -U --pre "yt-dlp[default]"
+          if command -v ffmpeg >/dev/null 2>&1; then ffmpeg -version | head -1; exit 0; fi
+          curl -fsSL --retry 3 -o /tmp/ffmpeg.tar.xz https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz
+          mkdir -p /tmp/ffmpeg && tar -xJf /tmp/ffmpeg.tar.xz -C /tmp/ffmpeg --strip-components=1
+          sudo cp /tmp/ffmpeg/bin/ffmpeg /tmp/ffmpeg/bin/ffprobe /usr/local/bin/
+          ffmpeg -version | head -1
+      - if: steps.check.outputs.si == '1'
+        name: Instalar yt-dlp
+        timeout-minutes: 5
+        run: pip install -U --pre "yt-dlp[default]"
       - if: steps.check.outputs.si == '1'
         name: Bajar canciones
         run: python .github/scripts/youtube.py
