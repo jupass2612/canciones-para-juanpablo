@@ -20,7 +20,6 @@
       "audio": null,
       "lyrics": "",
       "yt": "https://www.youtube.com/watch?v=O1wUdB7MQbI",
-      "ytPending": true,
       "ytFix": true,
       "ytAuto": [
         "title",
@@ -28,7 +27,8 @@
         "album",
         "cover",
         "track"
-      ]
+      ],
+      "ytError": "YouTube pidió confirmar que no es un robot (bloqueó a GitHub). Prueba de nuevo más tarde o agrega el secreto YT_COOKIES"
     }
   ]
 }
