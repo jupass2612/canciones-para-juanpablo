@@ -1,4 +1,4 @@
-// Widget "Canción de hoy" para el iPhone de Juan Pablo, con la app gratuita Scriptable.
+// Widget "Canción de hoy" para tu iPhone, con la app gratuita Scriptable.
 // 1. Cambia BASE por la dirección donde está publicada la app (termina en /).
 // 2. En Scriptable: + → pega este script → nómbralo "Canción de hoy".
 // 3. En la pantalla de inicio: mantener presionado → + → Scriptable → elige tamaño
@@ -40,12 +40,12 @@ const song = pick && pick.song;
 const big = config.widgetFamily !== "small";
 
 const g = new LinearGradient();
-g.colors = [new Color(song?.color || "#8e2453"), new Color("#1a0710")];
+g.colors = [new Color(song?.color || "#1f9e6b"), new Color("#0d0f12")];
 g.locations = [0, 1];
 w.backgroundGradient = g;
 w.setPadding(14, 16, 14, 16);
 
-const label = w.addText(pick?.fresh ? "NUEVA PARA TI ♥" : "CANCIÓN DE HOY ♥");
+const label = w.addText(pick?.fresh ? "NUEVA · MI MÚSICA" : "CANCIÓN DEL DÍA");
 label.font = Font.semiboldSystemFont(10);
 label.textColor = new Color("#ffffff", 0.85);
 w.addSpacer(6);
@@ -71,7 +71,7 @@ if (song) {
   }
 } else {
   w.addSpacer();
-  const t = w.addText("Muy pronto llegará tu primera canción");
+  const t = w.addText("Todavía no hay canciones");
   t.font = new Font("Georgia-Italic", 15);
   t.textColor = Color.white();
 }

@@ -244,6 +244,9 @@ body.has-mini .toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .metabox b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .metabox span{font-size:.82rem;color:var(--muted)}
 .albrow{display:flex;gap:8px;align-items:center}
+.ytquick{display:grid;gap:10px;margin-bottom:18px}
+.ytquick b{font-size:1rem}
+.ytquick textarea{min-height:46px;resize:vertical}
 .albrow input{flex:1;min-width:0}
 .albopts{display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;-webkit-overflow-scrolling:touch}
 .albopt{flex:none;display:flex;gap:8px;align-items:center;max-width:240px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:6px 10px 6px 6px;text-align:left}
@@ -399,6 +402,12 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
     <p class="eyebrow" id="edEyebrow">Nueva canción</p>
     <h2 id="edTitle">Agregar una canción</h2>
     <div class="chips" id="tgtChips" hidden></div>
+    <div class="card ytquick" id="ytQuick" hidden>
+      <b>Agregar rápido con YouTube</b>
+      <p class="hint" style="margin:0">Pega el link (o varios, uno por renglón) y toca Agregar. GitHub baja el audio y busca solo el nombre, el artista, el álbum, la portada y la letra.</p>
+      <textarea id="qYt" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="https://youtu.be/…" aria-label="Links de YouTube"></textarea>
+      <div class="row"><button type="button" class="btn primary" id="bQuick">Agregar</button><span class="msg" id="qMsg" role="status" aria-live="polite"></span></div>
+    </div>
     <div class="card calcard" id="calCard" hidden></div>
     <form id="editor" novalidate>
       <div class="two">
@@ -793,6 +802,7 @@ function ytWatch(){
       const remote = (await readRemoteSongs()).map(withLines);
       const done = remote.filter(s => before.get(s.id)?.ytPending && !s.ytPending);
       S.songs = remote; await refresh(false);
+      for (const s of done) toast(esc(s.ytError ? `No se pudo bajar "${s.title}"` : `"${s.title}" ya está lista`));
       for (const s of done) msg(s.ytError ? `No se pudo bajar "${s.title}": ${s.ytError}. En Biblioteca ⋯ → Reintentar, o sube el MP3.` : `"${s.title}" ya se bajó de YouTube y está lista.`, s.ytError ? "err" : "ok");
     } catch { ytWatch(); }
   }, 20000);
@@ -1226,7 +1236,7 @@ function itemHTML(s, admin, g, label){
         <div class="tags">
           ${!admin && isNew(s) ? `<span class="tag new">Nueva</span>` : ""}
           ${admin && scheduled ? `<span class="tag">Programada · ${esc(niceDate(s.date))}</span>` : ""}
-          ${admin && !isSynced(s.lines) ? `<span class="tag warn">Letra sin sincronizar</span>` : ""}
+          ${admin && !s.ytPending && !isSynced(s.lines) ? `<span class="tag warn">Letra sin sincronizar</span>` : ""}
           ${admin && s.ytPending ? `<span class="tag">Bajando de YouTube…</span>` : ""}
           ${admin && s.ytError && !s.audio ? `<span class="tag warn">No se pudo bajar de YouTube</span>` : ""}
           ${admin && !s.audio && !s.yt ? `<span class="tag warn">Sin audio</span>` : ""}
@@ -1772,7 +1782,7 @@ $("#editor").addEventListener("submit", async e => {
   if (E.sync) return msg("Termina o cancela la sincronización primero.", "err");
   if (!isAdmin()) { msg("Primero configura la conexión para publicar.", "err"); return; }
   const f = formSong();
-  if (!f.title) { $("#fTitle").focus(); return msg("Ponle el título de la canción.", "err"); }
+  if (!f.title && !(f.youtube && !E.audioBlob)) { $("#fTitle").focus(); return msg("Ponle el título de la canción.", "err"); }
   const btn = $("#bSend"); btn.disabled = true; $("#bDraft").disabled = true;
   const who = E.target ? E.targetLabel : APP_LABEL;
   REPO_OVERRIDE = E.target || null;
@@ -1792,6 +1802,8 @@ $("#editor").addEventListener("submit", async e => {
       audio = newPath;
     }
     let ytNew = false;
+    const ytAuto = [!f.title && "title", !f.artist && "artist", "album", "cover", "track"].filter(Boolean);
+    if (!f.title) f.title = "Canción de YouTube";
     if (!E.audioBlob && f.youtube && (!audio || !prev || prev.yt !== f.youtube)) {
       if (audio && prev && prev.yt && prev.yt !== f.youtube) files.push({ path: audio, remove: true });
       if (!prev || prev.yt !== f.youtube) audio = null;
@@ -1803,7 +1815,7 @@ $("#editor").addEventListener("submit", async e => {
     if (!cover || !album) { msg("Buscando portada y álbum…"); try { const m = await findCover(f.title, f.artist, E.audioDur); if (m) { cover = cover || m.cover; album = album || m.album; track = track || m.track; } } catch {} }
     if (!cover && E.meta.picBlob) { const pb = E.meta.picBlob; cover = `songs/${id}-cover.jpg`; files.push({ path: cover, content: () => blobToB64(pb), encoding: "base64", label: "Subiendo la portada" }); }
     const entry = { id, title: f.title, artist: f.artist, dedication: f.dedication, color: f.color, date: f.date, audio, lyrics: f.lyrics, ...(f.translation ? { translation: f.translation } : {}), ...(f.spotify ? { spotify: f.spotify } : {}), ...(cover ? { cover } : {}), ...(album ? { album } : {}), ...(track ? { track } : {}),
-      ...(f.youtube ? { yt: f.youtube } : {}), ...(ytNew ? { ytPending: true, ...(E.lyricsAuto || !isSynced(parseLyrics(f.lyrics)) ? { ytFix: true } : {}) } : {}), ...(prev && prev.duration && !ytNew && !E.audioBlob ? { duration: prev.duration } : {}) };
+      ...(f.youtube ? { yt: f.youtube } : {}), ...(ytNew ? { ytPending: true, ytAuto: ytAuto.filter(k => k === "title" || k === "artist" || !E.meta[k]), ...(E.lyricsAuto || !isSynced(parseLyrics(f.lyrics)) ? { ytFix: true } : {}) } : {}), ...(prev && prev.duration && !ytNew && !E.audioBlob ? { duration: prev.duration } : {}) };
     const next = prev ? remote.map(x => x.id === id ? entry : x) : [...remote, entry];
     files.push(songsFile(next));
     await commit(files, `${prev ? "Editar" : "Agregar"}: ${f.title}`, label => msg(`${label}…`));
@@ -1813,7 +1825,7 @@ $("#editor").addEventListener("submit", async e => {
     if (here) S.songs = next.map(withLines);
     const when = f.date > today() ? `Aparece en Hoy el ${niceDate(f.date, { day:"numeric", month:"long" })}` : "Aparece en un par de minutos";
     resetEditor(); await refresh(false);
-    msg(ytNew ? `Listo. GitHub está bajando "${f.title}" de YouTube; tarda 1 a 3 minutos. Aquí te aviso cuando quede.` : `Listo, ${prev ? "cambios guardados" : "agregada"}. ${when}.`, "ok");
+    msg(ytNew ? `Listo. GitHub está bajando ${f.title === "Canción de YouTube" ? "la canción" : `"${f.title}"`} de YouTube; tarda 1 a 3 minutos. Aquí te aviso cuando quede.` : `Listo, ${prev ? "cambios guardados" : "agregada"}. ${when}.`, "ok");
   } catch (err) { msg(ghError(err), "err"); }
   finally { REPO_OVERRIDE = null; btn.disabled = false; $("#bDraft").disabled = false; }
 });
@@ -2005,7 +2017,33 @@ $("#fSpotify").addEventListener("input", async () => {
 });
 
 let lastYt = "";
-if (YT_ON) $("#ytWrap").hidden = false;
+if (YT_ON) { $("#ytWrap").hidden = false; $("#ytQuick").hidden = false; }
+/* Agregar rápido: solo el link; lo demás lo llena GitHub al bajar el audio */
+async function quickAdd(){
+  const qm = $("#qMsg"), btn = $("#bQuick");
+  const urls = [...new Set(($("#qYt").value.match(/\S+/g) || []).map(ytParse).filter(Boolean))];
+  if (!urls.length) { qm.className = "msg err"; qm.textContent = "Pega un link de YouTube (youtube.com o youtu.be)."; return; }
+  if (!isAdmin()) { qm.textContent = "Primero configura la conexión en Ajustes."; return; }
+  btn.disabled = true; qm.className = "msg"; qm.textContent = "Agregando…";
+  REPO_OVERRIDE = null;
+  try {
+    const remote = await readRemoteSongs();
+    const have = new Set(remote.map(x => x.yt).filter(Boolean));
+    const fresh = urls.filter(u => !have.has(u));
+    if (!fresh.length) { qm.textContent = urls.length > 1 ? "Esas canciones ya están en tu biblioteca." : "Esa canción ya está en tu biblioteca."; return; }
+    const d = today(), base = Date.now();
+    const added = fresh.map((yt, i) => ({ id: `${d.replace(/-/g, "")}-${(base + i).toString(36).slice(-5)}-yt`, title: "Canción de YouTube", artist: "", dedication: "",
+      color: COLORS[(remote.length + i) % COLORS.length][1], date: d, audio: null, lyrics: "", yt, ytPending: true, ytFix: true, ytAuto: ["title", "artist", "album", "cover", "track"] }));
+    const next = [...remote, ...added];
+    await commit([songsFile(next)], added.length > 1 ? `Agregar ${added.length} de YouTube` : `Agregar de YouTube: ${fresh[0]}`);
+    S.songs = next.map(withLines); $("#qYt").value = ""; await refresh(false);
+    const skipped = urls.length - fresh.length;
+    qm.className = "msg ok";
+    qm.textContent = `Listo${added.length > 1 ? `, ${added.length} canciones` : ""}. Se están bajando; en 1 a 3 minutos aparecen con su nombre, portada y letra.${skipped ? ` (${skipped} ya estaba${skipped > 1 ? "n" : ""} en tu biblioteca.)` : ""}`;
+  } catch (err) { qm.className = "msg err"; qm.textContent = ghError(err); }
+  finally { btn.disabled = false; }
+}
+$("#bQuick").onclick = quickAdd;
 $("#fYoutube").addEventListener("input", async () => {
   const url = ytParse($("#fYoutube").value); if (!url || url === lastYt) return; lastYt = url;
   msg("Leyendo el video de YouTube…");
