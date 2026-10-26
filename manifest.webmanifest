@@ -1,11 +1,11 @@
 {
-  "name": "Canciones para Juan Pablo",
-  "short_name": "Para Juan Pablo",
+  "name": "Mi música",
+  "short_name": "Mi música",
   "start_url": "./#hoy",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#170d14",
-  "theme_color": "#8e2453",
+  "background_color": "#0d0f12",
+  "theme_color": "#0d0f12",
   "lang": "es-MX",
   "icons": [
     {
@@ -38,8 +38,8 @@
       ]
     },
     {
-      "name": "Dedicatorias",
-      "short_name": "Dedicatorias",
+      "name": "Biblioteca",
+      "short_name": "Biblioteca",
       "url": "./#dedicatorias",
       "icons": [
         {

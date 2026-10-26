@@ -1,0 +1,48 @@
+# Cuando publicas una canción con link de YouTube, esto baja el MP3 y lo guarda en el repo.
+name: Bajar canciones de YouTube
+on:
+  push:
+    branches: [main]
+    paths: ["songs/songs.json"]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+  pages: write
+concurrency:
+  group: youtube
+  cancel-in-progress: false
+jobs:
+  bajar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Revisar si hay canciones pendientes
+        id: check
+        run: |
+          if python3 -c "import json,sys; j=json.load(open('songs/songs.json')); s=j if isinstance(j,list) else j.get('songs',[]); sys.exit(0 if any(x.get('ytPending') for x in s) else 1)"; then
+            echo "si=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "No hay canciones pendientes."
+          fi
+      - if: steps.check.outputs.si == '1'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - if: steps.check.outputs.si == '1'
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - if: steps.check.outputs.si == '1'
+        name: Instalar yt-dlp y ffmpeg
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -U --pre "yt-dlp[default]"
+      - if: steps.check.outputs.si == '1'
+        name: Bajar canciones
+        run: python .github/scripts/youtube.py
+        env:
+          BRANCH: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+          YT_COOKIES: ${{ secrets.YT_COOKIES }}

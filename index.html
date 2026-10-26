@@ -3,36 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#8e2453">
+<meta name="theme-color" content="#0d0f12">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Para Juan Pablo">
+<meta name="apple-mobile-web-app-title" content="Mi música">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <!--PAGE-START-->
-<title>Canciones para Juan Pablo</title>
+<title>Mi música</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
 /* Layout: una columna de bolsillo; pestañas abajo; reproductor a pantalla completa con la letra al centro. Juan Pablo solo recibe; el modo "Dedicar" aparece únicamente en el dispositivo de quien dedica. */
 :root{
-  --bg:#f7eef1; --surface:#fffafb; --ink:#2b1220; --muted:#7e6271; --line:#ead8df;
-  --accent:#a8204f; --accent-ink:#ffffff; --danger:#b3261e; --warn:#9a6700;
-  --song:#a8204f;
-  --f-display:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --bg:#f3f4f6; --surface:#ffffff; --ink:#14161a; --muted:#5b626d; --line:#e1e4e9;
+  --accent:#0c7a54; --accent-ink:#ffffff; --danger:#b3261e; --warn:#9a6700;
+  --song:#1f9e6b;
+  --f-display:"Space Grotesk", "Helvetica Neue", system-ui, sans-serif;
   --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-hand:"Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --f-hand:var(--f-body);
   --r:14px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#170d14; --surface:#24161f; --ink:#f7e9ef; --muted:#b39aa8; --line:#3a2632;
-  --accent:#ff7ba9; --accent-ink:#2b0a18; --danger:#ff8a80; --warn:#f0b64a; color-scheme:dark;
+  --bg:#0d0f12; --surface:#171a1f; --ink:#eceef1; --muted:#9aa1ac; --line:#262b32;
+  --accent:#3ddc97; --accent-ink:#04210f; --danger:#ff8a80; --warn:#f0b64a; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#170d14; --surface:#24161f; --ink:#f7e9ef; --muted:#b39aa8; --line:#3a2632;
-  --accent:#ff7ba9; --accent-ink:#2b0a18; --danger:#ff8a80; --warn:#f0b64a; color-scheme:dark;
+  --bg:#0d0f12; --surface:#171a1f; --ink:#eceef1; --muted:#9aa1ac; --line:#262b32;
+  --accent:#3ddc97; --accent-ink:#04210f; --danger:#ff8a80; --warn:#f0b64a; color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -45,32 +45,31 @@ button{cursor:pointer}
 .wrap{max-width:560px;margin:0 auto;padding-inline:18px;padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(96px + env(safe-area-inset-bottom,0px))}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
 .brand svg{width:26px;height:26px;flex:none;color:var(--accent)}
-.brand h1{margin:0;font:400 1.55rem/1 var(--f-display);letter-spacing:.005em}
-.brand h1 em{color:var(--accent)}
+.brand h1{margin:0;font:700 1.45rem/1 var(--f-display);letter-spacing:-.01em}
+.brand h1 em{color:var(--accent);font-style:normal}
 .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
-h2{font:400 1.9rem/1.1 var(--f-display);margin:0 0 14px;text-wrap:balance}
+h2{font:700 1.6rem/1.15 var(--f-display);letter-spacing:-.01em;margin:0 0 14px;text-wrap:balance}
 h3{font:600 .8rem/1.2 var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
 
 /* Hoy */
 .today{position:relative;overflow:hidden;border-radius:22px;padding:24px 22px 22px;color:#fff;
-  background:radial-gradient(120% 90% at 100% 0%, color-mix(in oklab,var(--song) 60%, #fff) 0%, transparent 60%),
-             linear-gradient(160deg, color-mix(in oklab,var(--song) 92%, #000) 0%, color-mix(in oklab,var(--song) 55%, #12060c) 100%);
+  background:color-mix(in oklab,var(--song) 42%, #0d0f12);
   display:grid;gap:12px}
 .today .date{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.88;font-weight:600}
-.today .t{font:italic 400 2.6rem/1.02 var(--f-display);margin:0;text-wrap:balance}
+.today .t{font:700 2.3rem/1.05 var(--f-display);letter-spacing:-.02em;margin:0;text-wrap:balance}
 .today .a{opacity:.85;margin-top:-6px}
-.today .ded{font:500 1.5rem/1.2 var(--f-hand)}
-.today .preview{font:italic 400 1.15rem/1.35 var(--f-display);opacity:.8;border-left:2px solid rgba(255,255,255,.5);padding-left:12px}
-.today .rings{position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
+.today .ded{font:400 .95rem/1.4 var(--f-body);opacity:.85}
+.today .preview{font:500 1.05rem/1.35 var(--f-display);opacity:.8;border-left:2px solid rgba(255,255,255,.5);padding-left:12px}
+.today .rings{display:none;position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
   border:1px solid rgba(255,255,255,.18);box-shadow:0 0 0 22px rgba(255,255,255,.05),0 0 0 44px rgba(255,255,255,.035);pointer-events:none}
 .fresh{justify-self:start;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 10px;font-size:.74rem;font-weight:700;letter-spacing:.06em}
 .bigplay{justify-self:start;display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;
-  background:#fff;color:#2b1220;padding:12px 20px 12px 14px;font-weight:600}
+  background:#fff;color:#0d0f12;padding:12px 20px 12px 14px;font-weight:700}
 .bigplay svg{width:22px;height:22px}
 .count{margin-top:18px;color:var(--muted);font-size:.9rem}
-.count b{font:italic 400 1.2rem var(--f-display);color:var(--ink)}
+.count b{font:700 1.05rem var(--f-display);color:var(--ink)}
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:26px 20px;text-align:center;color:var(--muted)}
-.empty .hand{display:block;font:500 1.6rem/1.2 var(--f-hand);color:var(--accent);margin-bottom:4px}
+.empty .hand{display:block;font:700 1.15rem/1.3 var(--f-display);color:var(--accent);margin-bottom:4px}
 .banner{font-size:.85rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px}
 
 /* Lista */
@@ -83,7 +82,7 @@ h3{font:600 .8rem/1.2 var(--f-body);letter-spacing:.1em;text-transform:uppercase
 .meta{min-width:0}
 .meta b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta span{color:var(--muted);font-size:.86rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta .hand{font:500 1.15rem/1.2 var(--f-hand);color:var(--ink);opacity:.85;white-space:normal;margin-top:2px}
+.meta .hand{font:400 .84rem/1.35 var(--f-body);color:var(--muted);white-space:normal;margin-top:2px}
 .when{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
 .tag{font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:2px 8px;border-radius:999px;background:color-mix(in oklab,var(--accent) 12%,transparent);color:var(--accent)}
@@ -104,7 +103,7 @@ label{display:grid;gap:6px;font-weight:600;font-size:.88rem}
 label small{font-weight:400;color:var(--muted)}
 input[type=text],input[type=password],input[type=date],textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:44px}
 textarea{min-height:200px;resize:vertical;font:14px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
-textarea.note{min-height:80px;font:500 1.3rem/1.3 var(--f-hand)}
+textarea.note{min-height:64px}
 input[type=file]{font-size:.88rem;max-width:100%}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:420px){.two{grid-template-columns:1fr}}
@@ -124,8 +123,8 @@ ol.steps b{color:var(--ink)}
 
 /* Sincronizador */
 .sync .clock{font:600 .9rem var(--f-body);font-variant-numeric:tabular-nums;color:var(--muted)}
-.sync .prev{color:var(--muted);font:italic 1rem/1.3 var(--f-display);min-height:1.3em}
-.sync .cur{font:italic 400 1.7rem/1.15 var(--f-display);min-height:2.3em;text-wrap:balance}
+.sync .prev{color:var(--muted);font:500 1rem/1.3 var(--f-display);min-height:1.3em}
+.sync .cur{font:700 1.6rem/1.2 var(--f-display);min-height:2.3em;text-wrap:balance}
 .sync .cnt{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .mark{border:0;border-radius:16px;padding:22px;font-weight:700;font-size:1.1rem;background:var(--accent);color:var(--accent-ink)}
 .mark:active{transform:scale(.98)}
@@ -140,28 +139,28 @@ ol.steps b{color:var(--ink)}
 
 /* Reproductor */
 .player{position:fixed;top:0;left:0;right:0;bottom:auto;height:100%;height:100lvh;z-index:10;display:grid;grid-template-rows:auto minmax(0,1fr) auto;color:#fff;overflow:hidden;
-  background:linear-gradient(170deg, color-mix(in oklab,var(--song) 80%, #000) 0%, color-mix(in oklab,var(--song) 35%, #0b0308) 75%);
+  background:linear-gradient(180deg, color-mix(in oklab,var(--song) 55%, #0d0f12) 0%, #0d0f12 70%);
   padding:max(calc(env(safe-area-inset-top,0px) + 30px), 56px) 0 calc(14px + env(safe-area-inset-bottom,0px))}
 .ptop{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;padding-inline:14px}
 .pright .spbtn,.pright .trbtn{width:38px;min-width:38px;height:38px;padding:0}
 .pright .trbtn{font-size:.72rem}
 .pright{display:flex;gap:6px;justify-content:flex-end}
 .ptop .ttl{min-width:0;text-align:center}
-.ptop .ttl b{display:block;font:italic 400 1.25rem/1.15 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptop .ttl b{display:block;font:700 1.1rem/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ptop .ttl span{display:block;font-size:.8rem;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ibtn{border:0;background:rgba(255,255,255,.12);color:#fff;width:42px;height:42px;border-radius:50%;display:grid;place-items:center}
 .ibtn svg{width:20px;height:20px}
 .lyrics{min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:22vh 26px 30vh;mask-image:linear-gradient(transparent 0,#000 18%,#000 78%,transparent 100%);-webkit-mask-image:linear-gradient(transparent 0,#000 18%,#000 78%,transparent 100%)}
-.lyrics .ded{font:500 1.7rem/1.2 var(--f-hand);opacity:.95;margin:0 0 28px}
+.lyrics .ded{font:400 .95rem/1.4 var(--f-body);opacity:.7;margin:0 0 24px}
 .ln{display:block;width:100%;text-align:left;border:0;background:none;color:inherit;padding:8px 0;
-  font:400 1.45rem/1.25 var(--f-display);opacity:.38;transition:opacity .35s, transform .35s;transform-origin:left center}
+  font:700 1.4rem/1.3 var(--f-display);letter-spacing:-.01em;opacity:.38;transition:opacity .35s, transform .35s;transform-origin:left center}
 .ln.past{opacity:.55}
-.ln.on{opacity:1;font-style:italic;transform:scale(1.1);width:calc(100% / 1.1)}
+.ln.on{opacity:1;transform:scale(1.1);width:calc(100% / 1.1)}
 .static .ln{opacity:.9}
 .ln .tr{display:block;font:400 1rem/1.3 var(--f-body);opacity:.8;margin-top:3px;font-style:normal}
 .notr .ln .tr{display:none}
 .trbtn{border:0;background:rgba(255,255,255,.12);color:#fff;height:42px;min-width:42px;padding:0 12px;border-radius:999px;font-weight:700;font-size:.78rem;letter-spacing:.06em}
-.trbtn[aria-pressed=true]{background:#fff;color:#2b1220}
+.trbtn[aria-pressed=true]{background:#fff;color:#0d0f12}
 .results{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .results button{width:100%;text-align:left;display:grid;gap:2px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .results b{font-weight:600}
@@ -228,7 +227,7 @@ body.has-mini .toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .grp:first-child{margin-top:0}
 .grp img{width:52px;height:52px;border-radius:10px;object-fit:cover;flex:none}
 .grp div{display:grid;min-width:0}
-.grp b{font:400 1.45rem/1.15 var(--f-display);overflow-wrap:anywhere}
+.grp b{font:700 1.15rem/1.2 var(--f-display);overflow-wrap:anywhere}
 .grp span{font-size:.8rem;color:var(--muted)}
 
 /* Escuchar álbum o artista */
@@ -269,7 +268,7 @@ body.has-mini .toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 
 /* Avisos */
 .pushcard{margin-top:16px;gap:10px}
-.pushcard b.h{font:400 1.3rem/1.2 var(--f-display)}
+.pushcard b.h{font:700 1.15rem/1.25 var(--f-display)}
 textarea.code{min-height:90px;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;word-break:break-all}
 .codebox{font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;max-height:110px;overflow:auto;user-select:all}
 
@@ -355,13 +354,13 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
 <main class="wrap">
   <header class="brand">
-    <svg><use href="#i-heart"/></svg>
-    <h1>Canciones para <em>Juan Pablo</em></h1>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="3.2" height="9" rx="1.6" fill="currentColor"/><rect x="8.6" y="5" width="3.2" height="15" rx="1.6" fill="currentColor"/><rect x="14.2" y="8" width="3.2" height="12" rx="1.6" fill="currentColor"/><rect x="19.8" y="13" width="3.2" height="7" rx="1.6" fill="currentColor"/></svg>
+    <h1>Mi <em>música</em></h1>
   </header>
 
   <!-- HOY -->
   <section id="v-hoy">
-    <p class="banner" id="adminBanner" hidden>Así lo ve Juan Pablo hoy.</p>
+    <p class="banner" id="adminBanner" hidden>Así se ve tu inicio hoy.</p>
     <p class="offline-note" data-offline hidden>Estás sin internet. Puedes escuchar las canciones que descargaste.</p>
     <div class="hoygrid">
       <div>
@@ -378,7 +377,7 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
   <!-- DEDICATORIAS -->
   <section id="v-dedicatorias" hidden>
-    <p class="eyebrow">Para ti</p>
+    <p class="eyebrow">Tu biblioteca</p>
     <h2>Todas tus canciones</h2>
     <p class="offline-note" data-offline hidden>Estás sin internet. Las canciones con palomita están descargadas y se pueden escuchar.</p>
     <div class="offbar" id="offBar" hidden>
@@ -397,8 +396,8 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
   <!-- DEDICAR (solo quien dedica) -->
   <section id="v-dedicar" hidden>
-    <p class="eyebrow" id="edEyebrow">Nueva dedicatoria</p>
-    <h2 id="edTitle">Dedicarle una canción</h2>
+    <p class="eyebrow" id="edEyebrow">Nueva canción</p>
+    <h2 id="edTitle">Agregar una canción</h2>
     <div class="chips" id="tgtChips" hidden></div>
     <div class="card calcard" id="calCard" hidden></div>
     <form id="editor" novalidate>
@@ -415,11 +414,11 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
         <div class="albrow"><input type="text" id="fAlbum" autocomplete="off" placeholder="Nombre del álbum"><button type="button" class="btn" id="bAlbFind">Buscar</button></div>
         <div class="albopts" id="albOpts" hidden></div>
       </div>
-      <label>Tu mensaje para ella <small>Se ve con letra a mano en la tarjeta y arriba de la letra.</small>
-        <textarea id="fDed" class="note" placeholder="Esta me recuerda a la noche que…"></textarea>
+      <label>Nota <small>Opcional. Se ve en la tarjeta y arriba de la letra.</small>
+        <textarea id="fDed" class="note" placeholder="Dónde la escuchaste, por qué la guardaste…"></textarea>
       </label>
       <div class="two">
-        <label>Día que la recibe <small>Puedes programarla para otro día.</small>
+        <label>Fecha <small>Aparece en Hoy ese día. Puedes programarla para después.</small>
           <input type="date" id="fDate">
         </label>
         <div style="display:grid;gap:8px;align-content:start">
@@ -444,7 +443,7 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
         <textarea id="fLyrics" spellcheck="false" placeholder="Letra, un verso por renglón"></textarea>
       </div>
       <div style="display:grid;gap:10px">
-        <label for="fTrans">Traducción <small>Opcional, para canciones en otro idioma. Un renglón por verso, en el mismo orden que la letra. Juan Pablo la verá debajo de cada verso.</small></label>
+        <label for="fTrans">Traducción <small>Opcional, para canciones en otro idioma. Un renglón por verso, en el mismo orden que la letra. Se muestra debajo de cada verso.</small></label>
         <div class="row">
           <select id="fLang" aria-label="Idioma de la canción">
             <option value="en">Del inglés</option><option value="pt">Del portugués</option><option value="fr">Del francés</option>
@@ -476,7 +475,7 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
         <button type="button" class="btn" id="bSync">Sincronizar letra</button>
         <button type="button" class="btn" id="bDraft">Guardar borrador</button>
         <button type="button" class="btn" id="bPreview">Vista previa</button>
-        <button type="submit" class="btn primary" id="bSend">Dedicársela</button>
+        <button type="submit" class="btn primary" id="bSend">Guardar canción</button>
         <button type="button" class="btn" id="bCancelEdit" hidden>Cancelar edición</button>
       </div>
       <p class="msg" id="edMsg" role="status" aria-live="polite"></p>
@@ -500,7 +499,7 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
   <!-- AJUSTES (solo quien dedica) -->
   <section id="v-ajustes" hidden>
-    <p class="eyebrow">Modo para dedicar</p>
+    <p class="eyebrow">Modo administrador</p>
     <h2>Conexión para publicar</h2>
     <div class="card">
       <ol class="steps">
@@ -518,12 +517,12 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
           <label>Rama<input type="text" id="cBranch" autocomplete="off" autocapitalize="off" value="main"></label>
           <label>Token<input type="password" id="cToken" autocomplete="off" placeholder="github_pat_…"></label>
         </div>
-        <label>Otras apps que manejas <small>Opcional, para dedicar a otra app desde aquí. Escribe nombre y repositorio separados por dos puntos, y cada app separada por coma. Tu token debe tener acceso a esos repositorios.</small>
+        <label>Otras apps que manejas <small>Opcional, para publicar en otra app desde aquí. Escribe nombre y repositorio separados por dos puntos, y cada app separada por coma. Tu token debe tener acceso a esos repositorios.</small>
           <input type="text" id="cOthers" autocomplete="off" autocapitalize="off" placeholder="Mariana: canciones, Janahe: canciones-para-janahe">
         </label>
         <div class="row">
           <button type="submit" class="btn primary">Guardar y probar</button>
-          <button type="button" class="btn danger" id="cLogout">Quitar modo dedicar de este dispositivo</button>
+          <button type="button" class="btn danger" id="cLogout">Quitar modo administrador de este dispositivo</button>
         </div>
         <p class="msg" id="cMsg" role="status" aria-live="polite"></p>
       </form>
@@ -531,16 +530,16 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
     <h2 style="margin-top:34px">Avisos de canciones nuevas</h2>
     <div class="card">
-      <p class="hint">Cuando le dedicas una canción, a Juan Pablo le llega una notificación en su iPhone (iOS 16.4 o más reciente, con la app en la pantalla de inicio). Las canciones programadas le avisan el día que les toca, a las 8 de la mañana.</p>
+      <p class="hint">Cuando una canción queda lista te llega una notificación al iPhone (iOS 16.4 o más reciente, con la app en la pantalla de inicio). Las programadas avisan el día que les toca, a las 8 de la mañana.</p>
       <ol class="steps">
         <li>Una sola vez, en GitHub: tu repositorio → <b>Settings → Secrets and variables → Actions → New repository secret</b>. Nombre: <b>VAPID_PRIVATE_KEY</b>. Valor: la clave privada que te pasó Claude.</li>
-        <li>Juan Pablo abre la app, toca <b>Activar avisos</b> y te manda el código que le aparece.</li>
-        <li>Pega aquí ese código y toca <b>Agregar su teléfono</b>. Le llegará un aviso de prueba en un par de minutos.</li>
+        <li>Abre la app desde la pantalla de inicio, toca <b>Activar avisos</b> y copia el código que aparece.</li>
+        <li>Pega aquí ese código y toca <b>Agregar el teléfono</b>. Te llegará un aviso de prueba en un par de minutos.</li>
       </ol>
       <form id="pushForm" novalidate>
-        <label>Código de su teléfono<textarea id="pushCode" class="code" spellcheck="false" placeholder="CPA1…"></textarea></label>
+        <label>Código del teléfono<textarea id="pushCode" class="code" spellcheck="false" placeholder="CPA1…"></textarea></label>
         <div class="row">
-          <button type="submit" class="btn primary">Agregar su teléfono</button>
+          <button type="submit" class="btn primary">Agregar el teléfono</button>
           <button type="button" class="btn" id="pushTest">Enviar aviso de prueba</button>
         </div>
         <p class="msg" id="pushMsg" role="status" aria-live="polite"></p>
@@ -549,17 +548,17 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
     <h2 style="margin-top:34px">Spotify</h2>
     <div class="card">
-      <p class="hint">Para que Juan Pablo pueda guardar las canciones en su Spotify. Se configura una vez. Tu cuenta de Spotify necesita Premium y puedes registrar hasta 5 personas.</p>
+      <p class="hint">Para guardar las canciones en tu Spotify. Se configura una vez. Tu cuenta de Spotify necesita Premium.</p>
       <ol class="steps">
         <li>Entra a <b>developer.spotify.com/dashboard</b> → <b>Create app</b>. Nombre: el que quieras.</li>
         <li>En <b>Redirect URIs</b> pega exactamente esta dirección:<code class="url" id="spUri"></code></li>
         <li>En "Which API/SDKs are you planning to use?" marca <b>Web API</b> y guarda.</li>
-        <li>En <b>User Management</b> agrega el nombre y el correo de la cuenta de Spotify de Juan Pablo.</li>
+        <li>En <b>User Management</b> agrega tu nombre y el correo de tu cuenta de Spotify.</li>
         <li>Copia el <b>Client ID</b> de la app y pégalo aquí.</li>
       </ol>
       <form id="spForm" novalidate>
         <label>Client ID de Spotify<input type="text" id="spCid" autocomplete="off" autocapitalize="off" placeholder="32 letras y números"></label>
-        <div class="row"><button type="submit" class="btn primary">Guardar para Juan Pablo</button></div>
+        <div class="row"><button type="submit" class="btn primary">Guardar</button></div>
         <p class="msg" id="spMsg" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -572,7 +571,7 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
     <h2 id="spTitle">Agregar a Spotify</h2>
     <p class="hint" id="spWhat"></p>
     <button class="opt" id="spLiked" type="button"><i><svg><use href="#i-heart-o"/></svg></i><span><b>Tus me gusta</b><span>Se guarda en "Canciones que te gustan".</span></span></button>
-    <button class="opt" id="spList" type="button"><i><svg><use href="#i-addlist"/></svg></i><span><b>Playlist "Dedicatorias"</b><span>Si no existe, se crea en tu cuenta (privada).</span></span></button>
+    <button class="opt" id="spList" type="button"><i><svg><use href="#i-addlist"/></svg></i><span><b>Playlist "Mi música"</b><span>Si no existe, se crea en tu cuenta (privada).</span></span></button>
     <p class="hint" id="spNote"></p>
     <div class="row" style="justify-content:space-between">
       <button class="link" id="spOut" type="button" hidden>Desconectar Spotify</button>
@@ -604,8 +603,8 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
 <nav class="tabs" aria-label="Secciones">
   <a href="#hoy" data-v="hoy"><svg><use href="#i-sun"/></svg>Hoy</a>
-  <a href="#dedicatorias" data-v="dedicatorias"><svg><use href="#i-env"/></svg>Dedicatorias</a>
-  <a href="#dedicar" data-v="dedicar" id="tabDedicar" hidden><svg><use href="#i-pen"/></svg>Dedicar</a>
+  <a href="#dedicatorias" data-v="dedicatorias"><svg><use href="#i-addlist"/></svg>Biblioteca</a>
+  <a href="#dedicar" data-v="dedicar" id="tabDedicar" hidden><svg><use href="#i-pen"/></svg>Agregar</a>
 </nav>
 
 <!-- REPRODUCTOR -->
@@ -636,9 +635,9 @@ code.url{display:block;padding:10px 12px;border-radius:10px;background:var(--bg)
 
 <script>
 (() => {
-const COLORS = [["Rosa","#d6336c"],["Vino","#8e2453"],["Coral","#e0603f"],["Lavanda","#7d64c9"],["Océano","#2f78ad"],["Oro","#b98a1e"]];
+const COLORS = [["Menta","#1f9e6b"],["Cian","#1b8fa8"],["Azul","#3b6fd8"],["Violeta","#7559cf"],["Ámbar","#c97f16"],["Grafito","#5b6472"]];
 // Canción de muestra con letra original; se muestra solo si todavía no existe songs/songs.json.
-const DEMO = { id:"0000-muestra", title:"Canción de muestra", artist:"Para Juan Pablo", dedication:"Así se verá cada canción que te dedique", color:"#8e2453", date:null, audio:null,
+const DEMO = { id:"0000-muestra", title:"Canción de muestra", artist:"Mi música", dedication:"Así se verá cada canción que agregues", color:"#1f9e6b", date:null, audio:null,
   lyrics:"[00:01.00]Esta es una canción de muestra\n[00:04.60]para ver cómo avanza la letra\n[00:08.20]cada verso se enciende a su tiempo\n[00:11.80]como tu nombre en mi pensamiento\n[00:15.80]Toca cualquier línea para saltar\n[00:19.40]y pronto habrá canciones de verdad\n[00:23.20]♪" };
 
 const $ = s => document.querySelector(s);
@@ -794,7 +793,7 @@ function ytWatch(){
       const remote = (await readRemoteSongs()).map(withLines);
       const done = remote.filter(s => before.get(s.id)?.ytPending && !s.ytPending);
       S.songs = remote; await refresh(false);
-      for (const s of done) msg(s.ytError ? `No se pudo bajar "${s.title}": ${s.ytError}. En Dedicatorias ⋯ → Reintentar, o sube el MP3.` : `"${s.title}" ya se bajó de YouTube y está lista.`, s.ytError ? "err" : "ok");
+      for (const s of done) msg(s.ytError ? `No se pudo bajar "${s.title}": ${s.ytError}. En Biblioteca ⋯ → Reintentar, o sube el MP3.` : `"${s.title}" ya se bajó de YouTube y está lista.`, s.ytError ? "err" : "ok");
     } catch { ytWatch(); }
   }, 20000);
 }
@@ -951,10 +950,10 @@ async function spPlaylist(){
   let url = "/me/playlists?limit=50", found = null;
   while (url && !found) {
     const j = await spApi(url);
-    found = (j.items || []).find(p => p && p.name === "Dedicatorias" && p.owner && p.owner.id === me.id);
+    found = (j.items || []).find(p => p && p.name === "Mi música" && p.owner && p.owner.id === me.id);
     url = j.next ? j.next.replace("https://api.spotify.com/v1", "") : null;
   }
-  if (!found) found = await spApi("/me/playlists", { method: "POST", body: { name: "Dedicatorias", public: false, description: "Canciones que me dedicaron ❤" } });
+  if (!found) found = await spApi("/me/playlists", { method: "POST", body: { name: "Mi música", public: false, description: "Canciones de mi reproductor" } });
   ls.set("juanpablo-sp-pl", found.id); ls.del("juanpablo-sp-added"); return found.id;
 }
 async function spRun(p){
@@ -976,7 +975,7 @@ async function spRun(p){
       for (let i = 0; i < fresh.length; i += 100) await spApi(`/playlists/${pl}/items`, { method: "POST", body: { uris: fresh.slice(i, i + 100) } });
       fresh.forEach(u => done.add(u)); ls.set("juanpablo-sp-added", [...done]);
     }
-    const where = p.kind === "liked" ? "tus me gusta" : "tu playlist Dedicatorias";
+    const where = p.kind === "liked" ? "tus me gusta" : "tu playlist Mi música";
     const one = songs.length === 1 && uris.length === 1;
     let msgTxt = !uris.length ? `No encontré ${songs.length === 1 ? "esta canción" : "estas canciones"} en Spotify.`
       : added === 0 ? `Ya ${uris.length === 1 ? "estaba" : "estaban"} en ${where}.`
@@ -987,7 +986,7 @@ async function spRun(p){
   } catch (e) {
     if (e.relogin) return spLogin(p);
     if (e.status === 403) toast("Spotify no dio permiso a esta cuenta. Hay que agregar tu correo de Spotify en la app de desarrollador (User Management).");
-    else if (e.status === 404 && p.kind === "playlist") { ls.del("juanpablo-sp-pl"); toast("No encontré la playlist Dedicatorias. Vuelve a intentarlo y se creará otra vez."); }
+    else if (e.status === 404 && p.kind === "playlist") { ls.del("juanpablo-sp-pl"); toast("No encontré la playlist Mi música. Vuelve a intentarlo y se creará otra vez."); }
     else if (e.status === 429) toast("Spotify pidió esperar un momento. Inténtalo en un minuto.");
     else toast(e.status === -1 ? "No hay conexión con Spotify. Revisa tu internet." : "No se pudo agregar a Spotify. Inténtalo de nuevo.");
   }
@@ -1031,7 +1030,7 @@ async function renderPush(){
   if (!pushOK() && !(isIOS && !standalone())) { c.hidden = true; return; }
   if (isIOS && !standalone()) {
     c.hidden = ls.get("juanpablo-push-hint-off", false);
-    c.innerHTML = `<b class="h">Avisos de canciones nuevas</b><p class="hint">Para que te llegue un aviso cada vez que haya una canción nueva, primero agrega esta app a tu pantalla de inicio: en Safari toca Compartir → Agregar a pantalla de inicio, y ábrela desde ahí.</p><div class="row"><button class="btn" type="button" data-p="hint-off">Entendido</button></div>`;
+    c.innerHTML = `<b class="h">Avisos de canciones nuevas</b><p class="hint">Para que te llegue un aviso cuando una canción quede lista, primero agrega esta app a tu pantalla de inicio: en Safari toca Compartir → Agregar a pantalla de inicio, y ábrela desde ahí.</p><div class="row"><button class="btn" type="button" data-p="hint-off">Entendido</button></div>`;
     return;
   }
   if (Notification.permission === "denied") { c.hidden = true; return; }
@@ -1041,14 +1040,14 @@ async function renderPush(){
     const code = encCode(sub.toJSON());
     const sentFor = ls.get("juanpablo-push-sent", "");
     c.hidden = sentFor === code;
-    c.innerHTML = `<b class="h">Ya casi</b><p class="hint">Envía este código a quien te dedica las canciones. Cuando lo agregue, te llegará un aviso de prueba.</p>
+    c.innerHTML = `<b class="h">Ya casi</b><p class="hint">Copia este código y pégalo en Ajustes → Avisos (modo administrador). Te llegará un aviso de prueba.</p>
       <div class="codebox" id="pushMine">${esc(code)}</div>
       <div class="row"><button class="btn primary" type="button" data-p="copy">Copiar código</button>${navigator.share ? `<button class="btn" type="button" data-p="share">Compartir</button>` : ""}<button class="btn" type="button" data-p="done">Ya lo envié</button></div>`;
     c.dataset.code = code;
     return;
   }
   c.hidden = ls.get("juanpablo-push-later", 0) > Date.now();
-  c.innerHTML = `<b class="h">¿Te aviso cuando llegue una canción nueva?</b><p class="hint">Te llegará una notificación al celular cada vez que haya una canción para ti.</p>
+  c.innerHTML = `<b class="h">¿Te aviso cuando una canción quede lista?</b><p class="hint">Te llega una notificación al celular cuando termina de bajarse una canción.</p>
     <div class="row"><button class="btn primary" type="button" data-p="enable">Activar avisos</button><button class="btn" type="button" data-p="later">Ahora no</button></div><p class="msg" id="pushErr"></p>`;
 }
 $("#pushCard").addEventListener("click", async e => {
@@ -1085,7 +1084,7 @@ $("#pushForm").addEventListener("submit", async e => {
     const subs = (data.subs || []).filter(x => x.endpoint !== sub.endpoint); subs.push({ ...sub, added: today() });
     await commit([{ path: "push/subs.json", content: JSON.stringify({ subs }, null, 2) + "\n", encoding: "utf-8", label: "Guardando" },
                   { path: "push/test.json", content: JSON.stringify({ at: new Date().toISOString() }) + "\n", encoding: "utf-8", label: "Guardando" }], "Agregar teléfono para avisos");
-    $("#pushCode").value = ""; m.className = "msg ok"; m.textContent = `Listo (${subs.length} ${subs.length === 1 ? "teléfono" : "teléfonos"}). Le llegará un aviso de prueba en 1 o 2 minutos.`;
+    $("#pushCode").value = ""; m.className = "msg ok"; m.textContent = `Listo (${subs.length} ${subs.length === 1 ? "teléfono" : "teléfonos"}). Te llegará un aviso de prueba en 1 o 2 minutos.`;
   } catch (err) { m.className = "msg err"; m.textContent = ghError(err); }
 });
 $("#pushTest").onclick = async () => {
@@ -1133,10 +1132,10 @@ $("#albSheet").addEventListener("click", e => {
 
 /* ---------- Vistas ---------- */
 function renderToday(){
-  $("#adminBanner").hidden = !isAdmin();
+  $("#adminBanner").hidden = true;
   const box = $("#todayBox"), pick = songOfDay();
   if (!pick) {
-    box.innerHTML = `<div class="empty"><span class="hand">Muy pronto</span>Aquí va a llegar tu primera canción.</div>`;
+    box.innerHTML = `<div class="empty"><span class="hand">Todavía no hay canciones</span>Agrega la primera desde Agregar.</div>`;
     $("#countLine").textContent = ""; return;
   }
   const s = pick.song;
@@ -1144,11 +1143,11 @@ function renderToday(){
   const first = s.lines.find(l => l.text && l.text !== "♪");
   const moreToday = pick.fresh ? visible().filter(x => x.date === today() && x.id !== s.id).length : 0;
   box.innerHTML = `
-    <article class="today" style="--song:${esc(s.color||"#a8204f")}">
+    <article class="today" style="--song:${esc(s.color||"#1f9e6b")}">
       <span class="rings"></span>
       <div class="thead">${coverOf(s) ? `<img class="tcover" src="${esc(coverOf(s))}" alt="">` : ""}<div>
         <span class="date">${esc(date)}</span>
-        ${pick.fresh ? `<span class="fresh">NUEVA · HOY TE DEDICO ESTA${moreToday ? ` Y ${moreToday} MÁS` : ""}</span>` : `<span class="fresh">PARA ESCUCHAR HOY</span>`}
+        ${pick.fresh ? `<span class="fresh">NUEVA · AGREGADA HOY${moreToday ? ` · Y ${moreToday} MÁS` : ""}</span>` : `<span class="fresh">CANCIÓN DEL DÍA</span>`}
       </div></div>
       <h2 class="t">${esc(s.title)}</h2>
       <div class="a">${esc(s.artist||"")}</div>
@@ -1162,7 +1161,7 @@ function renderToday(){
   $("#playToday").onclick = () => openPlayer(s, herOrder());
   if ($("#spToday")) $("#spToday").onclick = () => openSpSheet([s.id]);
   const n = visible().filter(x => x.id !== DEMO.id).length;
-  $("#countLine").innerHTML = n ? `Llevas <b>${n}</b> ${n === 1 ? "canción dedicada" : "canciones dedicadas"}.` : "";
+  $("#countLine").innerHTML = n ? `<b>${n}</b> ${n === 1 ? "canción" : "canciones"} en tu biblioteca.` : "";
   renderRecent();
 }
 /* Las más recientes: primero las demás que le dedicaste hoy, luego todas las de ayer (la más nueva arriba);
@@ -1197,7 +1196,7 @@ function renderList(){
   const g = S.group = S.group || ls.get("juanpablo-group", "recent");
   $("#groupChips").hidden = list.length < 2;
   document.querySelectorAll("#groupChips .chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.g === g)));
-  if (!list.length) { S.displayed = []; ul.innerHTML = `<li class="empty"><span class="hand">Muy pronto</span>Aquí se irán guardando todas tus canciones.</li>`; return; }
+  if (!list.length) { S.displayed = []; ul.innerHTML = `<li class="empty"><span class="hand">Biblioteca vacía</span>Aquí se van guardando todas tus canciones.</li>`; return; }
   if (g === "recent") { S.displayed = list; ul.innerHTML = list.map(s => itemHTML(s, admin)).join(""); return; }
   // Agrupar por artista principal o por álbum; dentro de cada grupo, la más reciente primero
   const keyOf = x => g === "artist" ? (mainArtist(x.artist) || "Sin artista") : (albumOf(x) || "Álbum sin identificar");
@@ -1221,7 +1220,7 @@ function itemHTML(s, admin, g, label){
     const t = today(), scheduled = s.date && s.date > t, open = S.openMenu === s.id;
     const na = !navigator.onLine && s.audio && !isDown(s);
     return `<li class="item ${na ? "na" : ""}" data-id="${esc(s.id)}">
-      <button class="dot ${!admin && isNew(s) ? "new" : ""} ${coverOf(s) ? "cov" : ""}" style="--c:${esc(s.color||"#a8204f")}${coverOf(s) ? `;background-image:url('${esc(coverOf(s))}')` : ""}" data-act="play" aria-label="Reproducir ${esc(s.title)}"><svg><use href="#i-play"/></svg></button>
+      <button class="dot ${!admin && isNew(s) ? "new" : ""} ${coverOf(s) ? "cov" : ""}" style="--c:${esc(s.color||"#1f9e6b")}${coverOf(s) ? `;background-image:url('${esc(coverOf(s))}')` : ""}" data-act="play" aria-label="Reproducir ${esc(s.title)}"><svg><use href="#i-play"/></svg></button>
       <div class="meta"><b>${isFav(s.id) ? `<span class="favtag" aria-label="Favorita">♥</span> ` : ""}${esc(s.title)}</b><span>${esc(g === "artist" ? (albumOf(s) || s.artist || "") : (s.artist || ""))}${plays[s.id] ? ` · ${plays[s.id]} ${plays[s.id] === 1 ? "vez" : "veces"}` : ""}</span>
         ${s.dedication ? `<div class="hand">${esc(s.dedication)}</div>` : ""}
         <div class="tags">
@@ -1235,7 +1234,7 @@ function itemHTML(s, admin, g, label){
       <span class="side">${admin && s.id !== DEMO.id ? `<button class="more" data-act="menu" aria-label="Opciones de ${esc(s.title)}" aria-expanded="${open}"><svg width="20" height="20"><use href="#i-dots"/></svg></button>`
               : `<span class="when">${esc(label || niceDate(s.date))}</span>`}${dlButton(s)}</span>
       ${open ? `<div class="actions">${s.yt && !s.audio && !s.ytPending ? `<button class="btn primary" data-act="ytretry">Reintentar YouTube</button>` : ""}<button class="btn" data-act="preview">Vista previa</button><button class="btn" data-act="edit">Editar</button><button class="btn danger" data-act="del">Eliminar</button></div>` : ""}
-      ${S.confirmDel === s.id ? `<div class="actions"><span class="hint" style="flex-basis:100%">¿Quitar "${esc(s.title)}"? Juan Pablo ya no la verá.</span>
+      ${S.confirmDel === s.id ? `<div class="actions"><span class="hint" style="flex-basis:100%">¿Quitar "${esc(s.title)}"? Se borra de tu biblioteca.</span>
         <button class="btn danger" data-act="delyes">Sí, quitarla</button><button class="btn" data-act="delno">No</button></div>` : ""}
       ${S.confirmUndl === s.id ? `<div class="actions"><span class="hint" style="flex-basis:100%">¿Quitar la descarga de "${esc(s.title)}"? Seguirá en tu lista y podrás escucharla con internet.</span>
         <button class="btn danger" data-act="undlyes">Quitar descarga</button><button class="btn" data-act="undlno">Dejarla</button></div>` : ""}
@@ -1444,7 +1443,7 @@ function mediaSessionSetup(s){
   if (!("mediaSession" in navigator) || !s) return;
   try {
     const cov = coverOf(s);
-    navigator.mediaSession.metadata = new MediaMetadata({ title: s.title || "", artist: s.artist || "", album: "Canciones para Juan Pablo",
+    navigator.mediaSession.metadata = new MediaMetadata({ title: s.title || "", artist: s.artist || "", album: "Mi música",
       artwork: cov ? [{ src: new URL(cov, location.href).href, sizes: "600x600", type: "image/jpeg" }] : [{ src: new URL("icons/icon-512.png", location.href).href, sizes: "512x512", type: "image/png" }] });
     const h = (a, f) => { try { navigator.mediaSession.setActionHandler(a, f); } catch {} };
     h("play", () => togglePlay(true)); h("pause", () => togglePlay(false));
@@ -1490,7 +1489,7 @@ async function startSong(s, queue, opt = {}){
   $("#pWarn").hidden = true;
   P.song = s; P.queue = queue && queue.length ? queue : [s]; P.idx = -2; P.counted = false; P.ending = false; P.preloaded = null; P.resumeLabel = null;
   if (!isAdmin() && opt.autoplay !== false) { markSeen(s.id); renderLists(); }
-  $("#player").style.setProperty("--song", s.color || "#a8204f");
+  $("#player").style.setProperty("--song", s.color || "#1f9e6b");
   $("#pTitle").textContent = s.title || "Sin título"; $("#pArtist").textContent = s.artist || "";
   const synced = isSynced(s.lines), box = $("#pLyrics");
   box.classList.toggle("static", !synced);
@@ -1614,7 +1613,7 @@ function renderMini(){
   const m = $("#mini"), show = !!P.song && $("#player").hidden;
   m.hidden = !show; document.body.classList.toggle("has-mini", show);
   if (!show) return;
-  m.style.setProperty("--song", P.song.color || "#a8204f");
+  m.style.setProperty("--song", P.song.color || "#1f9e6b");
   $("#miniTitle").textContent = P.song.title || "Sin título";
   $("#miniSub").textContent = P.resumeLabel || P.song.artist || "";
   const cov = coverOf(P.song), art = $("#miniArt");
@@ -1710,7 +1709,7 @@ function resetEditor(){
   Object.assign(E, { draftId:null, publishedId:null, audioBlob:null, audioName:null, keptAudio:null, meta:{}, audioDur:null, autoTitle:false, lyricsAuto:false, albumManual:false, albumAlts:[] });
   clearTimeout(asT); $("#autoSaved").textContent = ""; $("#metaBox").hidden = true; lastSp = ""; lastYt = ""; $("#albOpts").hidden = true;
   $("#editor").reset(); $("#c0").checked = true; $("#fDate").value = today();
-  $("#edEyebrow").textContent = "Nueva dedicatoria"; $("#edTitle").textContent = "Dedicarle una canción";
+  $("#edEyebrow").textContent = "Nueva canción"; $("#edTitle").textContent = "Agregar una canción";
   $("#bCancelEdit").hidden = true; setAudioLabel();
   $("#findList").hidden = true; $("#findMsg").textContent = ""; $("#transMsg").textContent = "";
 }
@@ -1726,7 +1725,7 @@ function startEdit(s, isDraft){
   $("#fAlbum").value = E.meta.album || albumOf(s) || ""; if (!E.meta.album && $("#fAlbum").value) E.meta.album = $("#fAlbum").value;
   $("#fDate").value = s.date || today(); $("#fLyrics").value = toLRC(s.lines); $("#fTrans").value = s.translation || ""; $("#fSpotify").value = s.spotify ? `https://open.spotify.com/track/${s.spotify.split(":").pop()}` : ""; $("#fYoutube").value = s.youtube || s.yt || "";
   const r = [...sw.querySelectorAll("input")].find(i => i.value === s.color); if (r) r.checked = true;
-  $("#edEyebrow").textContent = E.publishedId ? "Editando dedicatoria" : "Borrador";
+  $("#edEyebrow").textContent = E.publishedId ? "Editando canción" : "Borrador";
   $("#edTitle").textContent = s.title || "Sin título";
   $("#bCancelEdit").hidden = false; setAudioLabel(); msg(""); renderMetaPreview();
   if (E.audioBlob) getDuration(E.audioBlob).then(d => { E.audioDur = d; setAudioLabel(); renderMetaPreview(); });
@@ -1765,7 +1764,7 @@ $("#bDraft").onclick = async () => {
     meta: { cover: E.meta.cover || null, album: E.meta.album || null, track: E.meta.track || null, picBlob: E.meta.picBlob || null },
     target: E.target, targetLabel: E.targetLabel, updated: Date.now() }); }
   catch { return msg("No se pudo guardar el borrador en este navegador.", "err"); }
-  E.draftId = id; await refresh(false); msg("Borrador guardado en este iPhone. Juan Pablo todavía no lo ve.", "ok");
+  E.draftId = id; await refresh(false); msg("Borrador guardado en este iPhone.", "ok");
 };
 
 $("#editor").addEventListener("submit", async e => {
@@ -1807,14 +1806,14 @@ $("#editor").addEventListener("submit", async e => {
       ...(f.youtube ? { yt: f.youtube } : {}), ...(ytNew ? { ytPending: true, ...(E.lyricsAuto || !isSynced(parseLyrics(f.lyrics)) ? { ytFix: true } : {}) } : {}), ...(prev && prev.duration && !ytNew && !E.audioBlob ? { duration: prev.duration } : {}) };
     const next = prev ? remote.map(x => x.id === id ? entry : x) : [...remote, entry];
     files.push(songsFile(next));
-    await commit(files, `${prev ? "Editar" : "Dedicar"}: ${f.title}`, label => msg(`${label}…`));
+    await commit(files, `${prev ? "Editar" : "Agregar"}: ${f.title}`, label => msg(`${label}…`));
     if (E.draftId) await draftDel(E.draftId);
     const here = !REPO_OVERRIDE;
     REPO_OVERRIDE = null;
     if (here) S.songs = next.map(withLines);
-    const when = f.date > today() ? `la recibirá el ${niceDate(f.date, { day:"numeric", month:"long" })}` : "la verá en un par de minutos";
+    const when = f.date > today() ? `Aparece en Hoy el ${niceDate(f.date, { day:"numeric", month:"long" })}` : "Aparece en un par de minutos";
     resetEditor(); await refresh(false);
-    msg(ytNew ? `Listo. GitHub está bajando "${f.title}" de YouTube; tarda 1 a 3 minutos. Aquí te aviso cuando quede.` : `Listo, ${prev ? "cambios publicados" : "dedicada"}. ${who} ${when}.`, "ok");
+    msg(ytNew ? `Listo. GitHub está bajando "${f.title}" de YouTube; tarda 1 a 3 minutos. Aquí te aviso cuando quede.` : `Listo, ${prev ? "cambios guardados" : "agregada"}. ${when}.`, "ok");
   } catch (err) { msg(ghError(err), "err"); }
   finally { REPO_OVERRIDE = null; btn.disabled = false; $("#bDraft").disabled = false; }
 });
@@ -2067,11 +2066,11 @@ const parseOthers = v => String(v || "").split(",").map(x => x.split(":").map(y 
   .map(([label, repo]) => ({ label, repo: repo.replace(/^.*github\.com\/[^/]+\//, "").replace(/\/+$/, "") }));
 function renderTargets(){
   const c = cfg(), others = (c && c.others) || [], box = $("#tgtChips");
-  if (!others.length) { box.hidden = true; E.target = null; E.targetLabel = null; $("#bSend").textContent = "Dedicársela"; return; }
+  if (!others.length) { box.hidden = true; E.target = null; E.targetLabel = null; $("#bSend").textContent = "Guardar canción"; return; }
   box.hidden = false;
   box.innerHTML = `<span class="hint" style="align-self:center">Para:</span>` + [{ label: APP_LABEL, repo: "" }, ...others].map(o =>
     `<button type="button" class="chip" data-repo="${esc(o.repo)}" data-label="${esc(o.label)}" aria-pressed="${(E.target || "") === o.repo}">${esc(o.label)}</button>`).join("");
-  $("#bSend").textContent = E.target ? `Dedicársela a ${E.targetLabel}` : "Dedicársela";
+  $("#bSend").textContent = E.target ? `Publicar en ${E.targetLabel}` : "Guardar canción";
 }
 $("#tgtChips").addEventListener("click", e => { const b = e.target.closest("[data-label]"); if (!b) return;
   E.target = b.dataset.repo || null; E.targetLabel = b.dataset.label; renderTargets(); renderCal(); queueAutosave(); });
@@ -2093,8 +2092,8 @@ function renderCal(){
   const days = []; for (let k = 0; k < 10; k++) { const d = new Date(); d.setDate(d.getDate() + k); days.push(ymd(d)); }
   const row = d => {
     const label = d === t ? "hoy" : niceDate(d), mine = sched.filter(x => x.date === d), plan = CAL.find(c => c.date === d);
-    if (mine.length) return mine.map(x => `<div class="calrow"><div><b>${esc(x.title)}</b><span>${esc(x.artist || "")} · ${esc(label)} · ${d === t ? "dedicada ✓" : "programada ✓"}</span></div><button type="button" class="btn" data-prev="${esc(x.id)}">Vista previa</button></div>`).join("");
-    if (plan) return `<div class="calrow"><div><b>${esc(plan.title)}</b><span>${esc(plan.artist)} · ${esc(label)} · en el plan</span></div>${isDedicated(plan) ? `<span class="tag">Ya dedicada ✓</span>` : `<button type="button" class="btn${d === t ? " primary" : ""}" data-cal="${esc(d)}">${d === t ? "Dedicar la de hoy" : "Usar"}</button>`}</div>`;
+    if (mine.length) return mine.map(x => `<div class="calrow"><div><b>${esc(x.title)}</b><span>${esc(x.artist || "")} · ${esc(label)} · ${d === t ? "agregada ✓" : "programada ✓"}</span></div><button type="button" class="btn" data-prev="${esc(x.id)}">Vista previa</button></div>`).join("");
+    if (plan) return `<div class="calrow"><div><b>${esc(plan.title)}</b><span>${esc(plan.artist)} · ${esc(label)} · en el plan</span></div>${isDedicated(plan) ? `<span class="tag">Ya agregada ✓</span>` : `<button type="button" class="btn${d === t ? " primary" : ""}" data-cal="${esc(d)}">${d === t ? "Usar la de hoy" : "Usar"}</button>`}</div>`;
     return `<div class="calrow"><div><b style="color:var(--muted)">Sin canción</b><span>${esc(label)}</span></div><button type="button" class="btn" data-free="${esc(d)}">Programar</button></div>`;
   };
   const later = sched.filter(x => x.date > days[days.length - 1]);
@@ -2131,7 +2130,7 @@ function renderBatch(){
       <input type="text" data-f="title" value="${esc(it.title)}" aria-label="Título">
       <input type="text" data-f="artist" value="${esc(it.artist || "")}" placeholder="Artista" aria-label="Artista">
       <input type="text" data-f="dedication" value="${esc(it.dedication || "")}" placeholder="Tu mensaje (opcional)" aria-label="Mensaje">
-      <div class="row"><input type="date" data-f="date" value="${esc(it.date || "")}" aria-label="Día que la recibe"><span class="hint">${esc(it.status)}${it.dur ? " · " + fmt(it.dur) : ""}</span></div>
+      <div class="row"><input type="date" data-f="date" value="${esc(it.date || "")}" aria-label="Fecha"><span class="hint">${esc(it.status)}${it.dur ? " · " + fmt(it.dur) : ""}</span></div>
       ${it.busy ? "" : `<button type="button" class="btn" data-pv="${i}" style="justify-self:start">Vista previa</button>`}
     </div>
     <button type="button" class="more" data-x="${i}" aria-label="Quitar ${esc(it.title)}">✕</button></li>`).join("");
@@ -2265,7 +2264,7 @@ function endSync(apply){
   cancelAnimationFrame(z.raf); z.clock.stop(); if (z.url && z.url.startsWith("blob:")) URL.revokeObjectURL(z.url);
   if (apply) {
     $("#fLyrics").value = z.texts.map((t,i) => z.times[i] != null ? `[${lrcTime(z.times[i])}]${t}` : t).join("\n");
-    msg(z.times.length === z.texts.length ? "Letra sincronizada. Ya puedes dedicársela." : "Se aplicaron los versos que marcaste.", "ok");
+    msg(z.times.length === z.texts.length ? "Letra sincronizada. Ya puedes guardarla." : "Se aplicaron los versos que marcaste.", "ok");
   }
   E.sync = null; $("#syncBox").hidden = true; $("#edButtons").hidden = false;
 }
@@ -2292,14 +2291,14 @@ $("#cfgForm").addEventListener("submit", async e => {
   try {
     const info = await gh("");
     if (!info.permissions || !info.permissions.push) throw Object.assign(new Error(), { status: 403 });
-    m.className = "msg ok"; m.textContent = "Conectado. Ya puedes dedicarle canciones desde este dispositivo.";
+    m.className = "msg ok"; m.textContent = "Conectado. Ya puedes agregar canciones desde este dispositivo.";
     applyMode(); await refresh();
   } catch (err) {
     if (before) ls.set("juanpablo-cfg", before); else ls.del("juanpablo-cfg");
     m.className = "msg err"; m.textContent = ghError(err);
   }
 });
-$("#cLogout").onclick = async () => { ls.del("juanpablo-cfg"); fillCfg(); applyMode(); $("#cMsg").className = "msg ok"; $("#cMsg").textContent = "Listo. Este dispositivo ya solo recibe canciones."; await refresh(); };
+$("#cLogout").onclick = async () => { ls.del("juanpablo-cfg"); fillCfg(); applyMode(); $("#cMsg").className = "msg ok"; $("#cMsg").textContent = "Listo. Este dispositivo ya no puede agregar canciones."; await refresh(); };
 $("#goSettings").onclick = () => { location.hash = "ajustes"; };
 $("#spForm").addEventListener("submit", async e => {
   e.preventDefault();
@@ -2310,7 +2309,7 @@ $("#spForm").addEventListener("submit", async e => {
   try {
     await commit([{ path: "config.json", content: JSON.stringify({ spotifyClientId: cid }, null, 2) + "\n", encoding: "utf-8", label: "Guardando" }], "Configurar Spotify");
     SP.cid = cid; ls.set("juanpablo-sp-cid", cid); renderToday(); renderSpotify();
-    m.className = "msg ok"; m.textContent = "Listo. En un par de minutos Juan Pablo verá el botón de Spotify en sus canciones.";
+    m.className = "msg ok"; m.textContent = "Listo. En un par de minutos aparece el botón de Spotify en tus canciones.";
   } catch (err) { m.className = "msg err"; m.textContent = ghError(err); }
 });
 
